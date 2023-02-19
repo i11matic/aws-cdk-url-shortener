@@ -21,7 +21,7 @@ jobs:
         uses: psf/black@stable
         with:
           options: " --check --verbose --line-length=79"
-          src: ./aws-cdk-url-shortener
+          src: ./aws_cdk_url_shortener
       - name: flake8
         uses: py-actions/flake8@v2
       - name: Set up Node
