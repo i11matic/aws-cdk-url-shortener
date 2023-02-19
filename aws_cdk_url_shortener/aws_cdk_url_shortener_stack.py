@@ -26,7 +26,7 @@ class AwsCdkUrlShortenerStack(Stack):
         )
         lambda_role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AWSLambdaBasicExecutionRole"
+                "service-role/AWSLambdaBasicExecutionRole"
             )
         )
         lambda_role.add_managed_policy(
