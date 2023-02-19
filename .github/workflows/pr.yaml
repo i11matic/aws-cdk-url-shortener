@@ -21,7 +21,7 @@ jobs:
         uses: psf/black@stable
         with:
           options: " --check --verbose --line-length=79"
-          src: ./aws-cdk-url-shortener
+          src: ./aws_cdk_url_shortener
       - name: flake8
         uses: py-actions/flake8@v2
       - name: Set up Node
@@ -30,6 +30,10 @@ jobs:
           node-version: "16"
       - name: install aws-cdk
         run: npm install -g aws-cdk
+      - name: update pip
+        run: python -m pip install --upgrade pip
+      - name: install requirements.txt
+        run: pip install -r requirements.txt
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
