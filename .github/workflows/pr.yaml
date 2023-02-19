@@ -21,5 +21,20 @@ jobs:
         uses: psf/black@stable
         with:
           options: " --check --verbose --line-length=79"
+          src: ./aws-cdk-url-shortener
       - name: flake8
         uses: py-actions/flake8@v2
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: install aws-cdk
+        run: npm install -g aws-cdk
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: "us-west-2"
+      - name: output CF resource
+        run: cdk synth
