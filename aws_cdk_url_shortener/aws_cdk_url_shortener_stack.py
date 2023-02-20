@@ -21,6 +21,13 @@ class AwsCdkUrlShortenerStack(Stack):
         )
 
         target_vpc = ec2.Vpc.from_lookup(self, "VPC", is_default=True)
+
+        vpc_subnets = ec2.SubnetSelection(
+            subnets=target_vpc.select_subnets(
+                subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS
+            ).subnets
+        )
+
         lambda_role = iam.Role(
             self,
             "awsLambdaUrlShortener",
@@ -36,6 +43,11 @@ class AwsCdkUrlShortenerStack(Stack):
                 "AmazonDynamoDBFullAccess"
             )
         )
+        lambda_role.add_managed_policy(
+            iam.ManagedPolicy.from_aws_managed_policy_name(
+                "AmazonEC2FullAccess"
+            )
+        )
 
         lambda_.DockerImageFunction(
             self,
@@ -45,4 +57,5 @@ class AwsCdkUrlShortenerStack(Stack):
             ),
             role=lambda_role,
             vpc=target_vpc,
+            vpc_subnets=vpc_subnets,
         )
