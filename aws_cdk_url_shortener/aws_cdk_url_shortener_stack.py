@@ -48,6 +48,11 @@ class AwsCdkUrlShortenerStack(Stack):
                 "AmazonEC2FullAccess"
             )
         )
+        lambda_role.add_managed_policy(
+            iam.ManagedPolicy.from_aws_managed_policy_name(
+                "service-role/AWSLambdaRole"
+            )
+        )
 
         lambda_.DockerImageFunction(
             self,
