@@ -2,7 +2,7 @@ from aws_cdk import (
     # Duration,
     Stack,
     aws_ecr as ecr,
-    aws_ec2 as ec2,
+    # aws_ec2 as ec2,
     # aws_sqs as sqs,
     aws_lambda as lambda_,
     aws_iam as iam,
@@ -61,6 +61,6 @@ class AwsCdkUrlShortenerStack(Stack):
                 repository=repo, tag_or_digest=lambda_image_config["tag"]
             ),
             role=lambda_role,
-            #vpc=target_vpc,
-            #vpc_subnets=vpc_subnets,
+            # vpc=target_vpc,
+            # vpc_subnets=vpc_subnets,
         )
