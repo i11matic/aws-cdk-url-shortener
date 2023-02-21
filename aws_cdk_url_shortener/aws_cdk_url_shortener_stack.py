@@ -20,13 +20,13 @@ class AwsCdkUrlShortenerStack(Stack):
             self, "Repository", repository_name=lambda_image_config["image"]
         )
 
-        target_vpc = ec2.Vpc.from_lookup(self, "VPC", is_default=True)
+        # target_vpc = ec2.Vpc.from_lookup(self, "VPC", is_default=True)
 
-        vpc_subnets = ec2.SubnetSelection(
-            subnets=target_vpc.select_subnets(
-                subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS
-            ).subnets
-        )
+        # vpc_subnets = ec2.SubnetSelection(
+        #     subnets=target_vpc.select_subnets(
+        #         subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS
+        #     ).subnets
+        # )
 
         lambda_role = iam.Role(
             self,
@@ -43,11 +43,11 @@ class AwsCdkUrlShortenerStack(Stack):
                 "AmazonDynamoDBFullAccess"
             )
         )
-        lambda_role.add_managed_policy(
-            iam.ManagedPolicy.from_aws_managed_policy_name(
-                "AmazonEC2FullAccess"
-            )
-        )
+        # lambda_role.add_managed_policy(
+        #     iam.ManagedPolicy.from_aws_managed_policy_name(
+        #         "AmazonEC2FullAccess"
+        #     )
+        # )
         lambda_role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name(
                 "service-role/AWSLambdaRole"
@@ -61,6 +61,6 @@ class AwsCdkUrlShortenerStack(Stack):
                 repository=repo, tag_or_digest=lambda_image_config["tag"]
             ),
             role=lambda_role,
-            vpc=target_vpc,
-            vpc_subnets=vpc_subnets,
+            #vpc=target_vpc,
+            #vpc_subnets=vpc_subnets,
         )
