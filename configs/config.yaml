@@ -1,4 +1,5 @@
 ---
 image: lamba-containers/lambda-urlshortener-py
 tag: latest
-alias: Prod
+alias: Prodv2
+daxEndpoint: dax://dax-cluster.be48kz.dax-clusters.us-west-2.amazonaws.com

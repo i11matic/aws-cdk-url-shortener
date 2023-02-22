@@ -62,6 +62,9 @@ class AwsCdkUrlShortenerStack(Stack):
             role=lambda_role,
             vpc=target_vpc,
             vpc_subnets=vpc_subnets,
+            environment={
+             "DAX_ENDPOINT": lambda_image_config["daxEndpoint"]
+            }
         )
         version = url_shortener.current_version
         lambda_.Alias(
